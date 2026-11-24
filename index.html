@@ -6,20 +6,15 @@
   <meta name="theme-color" content="#e7e7e4" />
   <meta name="description" content="PWA con geolocalización consciente, módulo reutilizable y plan B manual." />
   <title>Geolocalización Consciente PWA</title>
-
-  <!-- Rutas relativas: obligatorias para GitHub Pages en subdirectorio -->
   <link rel="stylesheet" href="./styles.css" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
-
-  <!-- iOS: icono de pantalla de inicio y modo aplicación -->
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Geo" />
 </head>
 <body>
-
   <header>
     <div class="marca">
       <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
@@ -28,27 +23,21 @@
       </svg>
       <span>Ubicación</span>
     </div>
-
     <div class="header-acciones">
       <span id="badge-estado" class="dot" title="Sin ubicación" role="status" aria-label="Estado de la ubicación"></span>
     </div>
   </header>
-
   <main>
-
     <section class="panel">
-
       <div class="estado">
         <span class="dot" id="punto-estado" aria-hidden="true"></span>
         <span id="mensaje-estado" aria-live="polite">Sin ubicación todavía.</span>
       </div>
-
       <div id="resultado" class="resultado" hidden>
         <div class="resultado-cabecera">
           <h2>Última lectura</h2>
           <span id="pastilla-precision" class="pastilla">—</span>
         </div>
-
         <div class="coords">
           <div class="coord">
             <span class="etiqueta">Latitud</span>
@@ -59,7 +48,6 @@
             <span class="valor" id="valor-longitud">—</span>
           </div>
         </div>
-
         <div class="meta">
           <div class="coord">
             <span class="etiqueta">Precisión</span>
@@ -74,9 +62,7 @@
             <span class="valor" id="valor-hora">—</span>
           </div>
         </div>
-
       </div>
-
       <div class="acciones">
         <button type="button" id="btn-ubicacion" class="btn-texto btn-primario">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
@@ -85,7 +71,6 @@
           </svg>
           <span>Adjuntar mi ubicación</span>
         </button>
-
         <button type="button" id="btn-zona-manual" class="btn-texto">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M9 20l-5.5-2.2A1 1 0 0 1 3 16.9V5.1a1 1 0 0 1 1.3-1L9 6"/>
@@ -96,7 +81,6 @@
           <span>Zona manual</span>
         </button>
       </div>
-
       <div id="aviso-permiso" class="aviso" hidden aria-labelledby="aviso-titulo">
         <h2 id="aviso-titulo">¿Para qué usamos tu ubicación?</h2>
         <p>Queremos adjuntar las coordenadas al reporte técnico y calcular la zona más cercana. La lectura se procesa en este dispositivo y no se envía a ningún servidor.</p>
@@ -115,16 +99,13 @@
           <button type="button" id="btn-cancelar-permiso" class="btn-texto">Ahora no</button>
         </div>
       </div>
-
       <div id="plan-b" class="aviso aviso-manual" hidden aria-labelledby="plan-b-titulo">
         <h2 id="plan-b-titulo">Elegir una zona manualmente</h2>
         <p id="plan-b-texto">Si no hay GPS, rechazaste el permiso o la lectura tardó demasiado, puedes usar una zona de referencia.</p>
-
         <label class="campo">
           <span class="etiqueta">Zona o ciudad</span>
           <select id="select-zona"></select>
         </label>
-
         <div class="acciones">
           <button type="button" id="btn-usar-zona" class="btn-texto btn-primario">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
@@ -133,17 +114,11 @@
             <span>Usar esta zona</span>
           </button>
         </div>
-
         <p id="nota-permiso" class="nota-permiso" hidden>Para reactivar el permiso: abre el candado de la barra de direcciones y permite la ubicación para este sitio.</p>
       </div>
-
       <p class="pie">La ubicación se usa solo en este dispositivo.</p>
-
     </section>
-
   </main>
-
-  <!-- geo-helper.js SIEMPRE antes de app.js: expone las funciones globales -->
   <script src="./geo-helper.js"></script>
   <script src="./app.js"></script>
 </body>
