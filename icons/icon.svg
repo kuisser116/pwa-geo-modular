@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Geolocalización Consciente PWA">
+  <rect width="512" height="512" rx="96" fill="#173b41"/>
+  <g>
+    <circle cx="256" cy="232" r="120" fill="#f3f3f0"/>
+    <path d="M148 300 L256 432 L364 300 Z" fill="#f3f3f0"/>
+    <circle cx="256" cy="232" r="48" fill="#173b41"/>
+  </g>
+</svg>
