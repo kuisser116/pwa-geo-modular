@@ -46,11 +46,13 @@ pwa-geo-modular/
 1. El usuario pulsa "Adjuntar mi ubicación".
 2. Se consulta el estado del permiso sin abrir el diálogo nativo.
 3. Si ya está concedido, se lee la ubicación de inmediato.
-4. Si está en `prompt`, aparece una tarjeta explicativa y el botón de
-   confirmación dispara la lectura real.
-5. Si está denegado o falla por TIMEOUT, se habilita el selector manual de
+4. Si está en `prompt` y es la primera vez, aparece una tarjeta explicativa;
+   al confirmar se lee la ubicación y se recuerda la elección.
+5. Si el aviso ya se aceptó antes, se lee directo para no repetir pasos; el
+   navegador sigue mostrando su diálogo nativo cuando corresponde.
+6. Si está denegado o falla por TIMEOUT, se habilita el selector manual de
    zona y se explica cómo reactivar el permiso.
-6. La lectura se clasifica: menos de 30 m es precisión GPS alta; el resto es
+7. La lectura se clasifica: menos de 30 m es precisión GPS alta; el resto es
    ubicación aproximada por Wi-Fi o IP.
 
 ## Pruebas

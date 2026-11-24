@@ -9,6 +9,7 @@
 'use strict';
 
 const PRECISION_MANUAL = 5000;
+const CLAVE_AVISO_GEO = 'pwa-geo-aviso-aceptado';
 
 const ZONAS = [
   { id: 'cuernavaca', nombre: 'Cuernavaca Centro, Morelos', latitud: 18.9242, longitud: -99.2216 },
@@ -88,6 +89,22 @@ function formatearHora(marca) {
   return ('0' + d.getHours()).slice(-2) + ':' +
     ('0' + d.getMinutes()).slice(-2) + ':' +
     ('0' + d.getSeconds()).slice(-2);
+}
+
+function leerMarcaAviso() {
+  try {
+    return window.localStorage.getItem(CLAVE_AVISO_GEO) === '1';
+  } catch (error) {
+    return false;
+  }
+}
+
+function guardarMarcaAviso() {
+  try {
+    window.localStorage.setItem(CLAVE_AVISO_GEO, '1');
+  } catch (error) {
+    // Modo privado o almacenamiento restringido: se vuelve a mostrar el aviso.
+  }
 }
 
 function construirEnlaceMapa(ubicacion) {
@@ -212,6 +229,14 @@ function solicitarUbicacion() {
     });
 }
 
+function continuarSinAviso(boton) {
+  consultaPermisoEnProceso = false;
+  if (boton) {
+    boton.disabled = false;
+  }
+  solicitarUbicacion();
+}
+
 function alPulsarUbicacion() {
   if (consultaPermisoEnProceso || lecturaEnProceso) {
     return;
@@ -231,11 +256,7 @@ function alPulsarUbicacion() {
       anotar('Estado del permiso de ubicación: ' + estado + '.');
 
       if (estado === 'granted') {
-        consultaPermisoEnProceso = false;
-        if (boton) {
-          boton.disabled = false;
-        }
-        solicitarUbicacion();
+        continuarSinAviso(boton);
         return;
       }
 
@@ -244,10 +265,19 @@ function alPulsarUbicacion() {
         return;
       }
 
+      if (leerMarcaAviso()) {
+        continuarSinAviso(boton);
+        return;
+      }
+
       mostrarAvisoPermiso();
     })
     .catch(function () {
-      mostrarAvisoPermiso();
+      if (leerMarcaAviso()) {
+        continuarSinAviso(boton);
+      } else {
+        mostrarAvisoPermiso();
+      }
     })
     .finally(function () {
       consultaPermisoEnProceso = false;
@@ -258,6 +288,7 @@ function alPulsarUbicacion() {
 }
 
 function confirmarPermiso() {
+  guardarMarcaAviso();
   $('aviso-permiso').hidden = true;
   solicitarUbicacion();
 }
